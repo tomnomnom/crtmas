@@ -49,9 +49,9 @@ function crtmas(elem){
                 c.save();
                 c.beginPath();
                 c.rect(x, y, pixelWidth, pixelHeight);
-                c.shadowBlur = 10;
+                c.shadowBlur = 6;
                 c.shadowColor = 'hsla(86, 100%, 50%, 1)';
-                c.fillStyle = 'hsla(86, 100%, 50%, 1)';
+                c.fillStyle = 'hsla(86, 100%, 50%, 0.9)';
                 c.fill();
                 c.closePath();
                 c.restore();
