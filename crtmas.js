@@ -73,15 +73,5 @@ function crtmas(elem){
         c.fill();
         c.restore();
     }
-
-    function initTrail(){
-        var trail = [];
-        var length = Math.floor((Math.random() * 10) + 1);
-        for (var i = 0; i < length; i++) {
-            trail.push(Math.fllor(Math.random() * 2));
-        }
-
-        return trail;
-    }
 }
 
