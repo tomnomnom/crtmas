@@ -12,12 +12,16 @@
       }
       canvas {
         padding: 1em;
+        filter: url(#crt-filter);
       }
+
+        svg {
+        }
     </style>
   </head>
   <body>
     <section class="main">
-      <canvas id="demo" width="1000" height="500" data-val="0">No canvas</canvas>
+      <canvas id="demo" width="800" height="600" data-val="0">No canvas</canvas>
     </section>
 
     <script src="crtmas.js"></script>
@@ -27,6 +31,22 @@
         crtmas(demo);
       };
     </script>
+
+    <svg version="1.1" width=512 height=512 viewBox="0 0 800 600"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink">
+        <defs>
+            <filter id="crt-filter" color-interpolation-filters="sRGB" x="0" y="0" width="800" height="600">
+
+                <feImage width="800" height="600" xlink:href="fisheye800.png" result="displacement" />
+                <feDisplacementMap width="800" height="600" in="SourceGraphic" in2="displacement" scale="50" xChannelSelector="R" yChannelSelector="G" result="fisheye"/>
+
+                <!--<feGaussianBlur stdDeviation="3" in="fisheye" result="blur"/>-->
+
+            </filter>
+        </defs>
+    </svg>
+
     
   </body>
 </html>

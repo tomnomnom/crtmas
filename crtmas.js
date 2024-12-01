@@ -1,56 +1,65 @@
 function crtmas(elem){
 
-    var bgColor = 'hsla(0, 0%, 0%, 0.02)';
-    var baseFreq = 2;
+    var bgColor = 'hsla(0, 0%, 0%, 0.002)';
 
     var width = elem.width;
     var height = elem.height;
 
     var c = elem.getContext('2d');
 
-    var screen = [
-        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,1,0,0,0,1,0,1,1,1,1,1,0,1,1,1,1,0,0,1,1,1,1,0,0,1,0,0,0,1,0,0,0,0,0,0,0,1],
-        [1,0,1,1,0,1,1,0,1,0,0,0,0,0,1,0,0,0,1,0,1,0,0,0,1,0,0,1,0,1,0,0,0,0,0,0,0,0,1],
-        [1,0,1,0,1,0,1,0,1,1,1,1,0,0,1,1,1,1,0,0,1,1,1,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
-        [1,0,1,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
-        [1,0,1,0,0,0,1,0,1,1,1,1,1,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,0,0,1,1,1,1,0,1,1,1,1,0,0,1,1,1,1,1,0,1,0,0,0,1,0,0,1,1,1,0,0,0,1,1,1,1,0,1],
-        [1,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,1,0,1,1,0,1,0,0,0,1,0,1,0,0,0,0,0,1],
-        [1,0,1,0,0,0,0,0,1,1,1,1,0,0,0,0,1,0,0,0,1,0,1,0,1,0,1,1,1,1,1,0,0,1,1,1,0,0,1],
-        [1,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,1,0,1],
-        [1,0,0,1,1,1,1,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,0,0,1,0,1,1,1,1,0,0,1],
-        [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-        [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-    ];
+    var grid = [
+        "                                                       ",
+        "                                                       ",
+        "  OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO  ",
+        "  O                                                 O  ",
+        "  O O     O OOOOOOO OOOOO   OOOOO   O     O         O  ",
+        "  O OO   OO O       O    O  O    O  O     O         O  ",
+        "  O O O O O O       O     O O     O  O   O          O  ",
+        "  O O  O  O O       O    O  O    O    O O           O  ",
+        "  O O     O OOOOOO  OOOOO   OOOOO      O            O  ",
+        "  O O     O O       O    O  O    O     O            O  ",
+        "  O O     O O       O     O O     O    O            O  ",
+        "  O O     O O       O     O O     O    O            O  ",
+        "  O O     O OOOOOOO O     O O     O    O            O  ",
+        "  O                                                 O  ",
+        "  O  OOOOO  OOOOO   OOOOOOO O     O   OOO     OOOO  O  ",
+        "  O O     O O    O     O    OO   OO  O   O   O    O O  ",
+        "  O O       O     O    O    O O O O O     O O       O  ",
+        "  O O       O    O     O    O  O  O O     O  O      O  ",
+        "  O O       OOOOO      O    O     O OOOOOOO   OOO   O  ",
+        "  O O       O    O     O    O     O O     O      O  O  ",
+        "  O O       O     O    O    O     O O     O       O O  ",
+        "  O O     O O     O    O    O     O O     O O    O  O  ",
+        "  O  OOOOO  O     O    O    O     O O     O  OOOO   O  ",
+        "  O                                                 O  ",
+        "  OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO  ",
+        "                                                       ",
+        "                                                       "
+    ].map(r => r.split(""));
 
     var state = {
         pointer: 0
     };
 
-    var pixelWidth = (width / screen[0].length) * 0.9;
-    var pixelHeight = (height / screen.length) * 0.9;
+    var pixelWidth = (width / grid[0].length);
+    var pixelHeight = (height / grid.length) * 0.9;
 
 
     (function draw(t){
         drawBg(c);
 
-        var y = (height / screen.length) * state.pointer;
+        var y = (height / grid.length) * state.pointer;
         
-        var row = screen[state.pointer];
+        var row = grid[state.pointer];
 
         for (var i = 0; i < row.length; i++){
 
-            if (row[i] == 1){
+            if (row[i] == "O"){
                 var x = (width / row.length) * i;
 
                 c.save();
                 c.beginPath();
                 c.rect(x, y, pixelWidth, pixelHeight);
-                c.shadowBlur = 6;
-                c.shadowColor = 'hsla(86, 100%, 50%, 1)';
                 c.fillStyle = 'hsla(86, 100%, 50%, 0.9)';
                 c.fill();
                 c.closePath();
@@ -59,7 +68,7 @@ function crtmas(elem){
         }
 
         state.pointer++;
-        if (state.pointer >= screen.length){
+        if (state.pointer >= grid.length){
             state.pointer = 0;
         }
 
