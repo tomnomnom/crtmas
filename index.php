@@ -25,7 +25,7 @@
         <canvas id="demo" width="800" height="600" data-val="0">No canvas</canvas>
     </section>
 
-    <script src="crtmas.js?"></script>
+    <script src="crtmas.js?<?php echo uniqid(); ?>"></script>
 
     <script>
         window.addEventListener('load', function(){

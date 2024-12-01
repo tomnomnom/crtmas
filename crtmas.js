@@ -32,8 +32,6 @@ function crtmas(elem, imgData, srcWidth, srcHeight){
         col++;
     }
 
-    console.log(grid);
-
     var state = {
         pointer: 0
     };
