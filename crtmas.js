@@ -1,4 +1,4 @@
-function crtmas(elem){
+function crtmas(elem, imgData, srcWidth, srcHeight){
 
     var bgColor = 'hsla(0, 0%, 0%, 0.002)';
 
@@ -7,35 +7,32 @@ function crtmas(elem){
 
     var c = elem.getContext('2d');
 
-    var grid = [
-        "                                                       ",
-        "                                                       ",
-        "  OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO  ",
-        "  O                                                 O  ",
-        "  O O     O OOOOOOO OOOOO   OOOOO   O     O         O  ",
-        "  O OO   OO O       O    O  O    O  O     O         O  ",
-        "  O O O O O O       O     O O     O  O   O          O  ",
-        "  O O  O  O O       O    O  O    O    O O           O  ",
-        "  O O     O OOOOOO  OOOOO   OOOOO      O            O  ",
-        "  O O     O O       O    O  O    O     O            O  ",
-        "  O O     O O       O     O O     O    O            O  ",
-        "  O O     O O       O     O O     O    O            O  ",
-        "  O O     O OOOOOOO O     O O     O    O            O  ",
-        "  O                                                 O  ",
-        "  O  OOOOO  OOOOO   OOOOOOO O     O   OOO     OOOO  O  ",
-        "  O O     O O    O     O    OO   OO  O   O   O    O O  ",
-        "  O O       O     O    O    O O O O O     O O       O  ",
-        "  O O       O    O     O    O  O  O O     O  O      O  ",
-        "  O O       OOOOO      O    O     O OOOOOOO   OOO   O  ",
-        "  O O       O    O     O    O     O O     O      O  O  ",
-        "  O O       O     O    O    O     O O     O       O O  ",
-        "  O O     O O     O    O    O     O O     O O    O  O  ",
-        "  O  OOOOO  O     O    O    O     O O     O  OOOO   O  ",
-        "  O                                                 O  ",
-        "  OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO  ",
-        "                                                       ",
-        "                                                       "
-    ].map(r => r.split(""));
+    var grid = [];
+    var data = imgData.data;
+
+    var row = 0;
+    var col = 0;
+
+    for (let i = 0; i < data.length; i += 4){
+        if (col >= srcWidth) {
+            row++;
+            col = 0
+        }
+
+        if (col == 0) {
+            grid[row] = [];
+        }
+
+        var r = data[i];
+        var g = data[i+1];
+        var b = data[i+2];
+
+        grid[row][col] = `rgba(${r}, ${g}, ${b}, 0.9)`;
+        
+        col++;
+    }
+
+    console.log(grid);
 
     var state = {
         pointer: 0
@@ -54,17 +51,16 @@ function crtmas(elem){
 
         for (var i = 0; i < row.length; i++){
 
-            if (row[i] == "O"){
                 var x = (width / row.length) * i;
+                
 
                 c.save();
                 c.beginPath();
                 c.rect(x, y, pixelWidth, pixelHeight);
-                c.fillStyle = 'hsla(86, 100%, 50%, 0.9)';
+                c.fillStyle = row[i];
                 c.fill();
                 c.closePath();
                 c.restore();
-            }
         }
 
         state.pointer++;
