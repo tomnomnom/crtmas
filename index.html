@@ -1,52 +1,57 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <title>Merry CRTmas</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <style>
-      body {
-        background-color: #000000;
-      }
-      section {
-        text-align: center;
-      }
-      canvas {
-        padding: 1em;
-        filter: url(#crt-filter);
-      }
-
+        body {
+            background-color: #000000;
+        }
+        section {
+            text-align: center;
+        }
+        canvas {
+            padding: 1em;
+            filter: url(#crt-filter);
+        }
         svg {
+            display: none;
         }
     </style>
-  </head>
-  <body>
+</head>
+<body>
+
     <section class="main">
-      <canvas id="demo" width="800" height="600" data-val="0">No canvas</canvas>
+        <canvas id="demo" width="800" height="600" data-val="0">No canvas</canvas>
     </section>
 
-    <script src="crtmas.js"></script>
+    <script src="crtmas.js?"></script>
+
     <script>
-      window.onload = function(){
-        var demo = document.getElementById('demo');
-        crtmas(demo);
-      };
+        window.addEventListener('load', function(){
+            var demo = document.getElementById('demo');
+            crtmas(demo);
+        });
     </script>
 
-    <svg version="1.1" width=512 height=512 viewBox="0 0 800 600"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink">
+    <svg version="1.1" width=800 height=600 viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
             <filter id="crt-filter" color-interpolation-filters="sRGB" x="0" y="0" width="800" height="600">
 
                 <feImage width="800" height="600" xlink:href="fisheye800.png" result="displacement" />
-                <feDisplacementMap width="800" height="600" in="SourceGraphic" in2="displacement" scale="50" xChannelSelector="R" yChannelSelector="G" result="fisheye"/>
+                <feDisplacementMap width="800" height="600" in="SourceGraphic" in2="displacement" scale="70" xChannelSelector="R" yChannelSelector="G" result="fisheye"/>
 
-                <!--<feGaussianBlur stdDeviation="3" in="fisheye" result="blur"/>-->
+                <feGaussianBlur stdDeviation="3" in="fisheye" result="blur"/>
+
+                <feSpecularLighting result="specOut" specularExponent="5" lighting-color="#aaaaaa">
+                    <fePointLight x="50" y="75" z="100" />
+                </feSpecularLighting>
+                <feComposite in="blur" in2="specOut" operator="arithmetic" k1="0" k2="0.5" k3="1" k4="0" />
 
             </filter>
         </defs>
     </svg>
 
-    
-  </body>
+
+</body>
 </html>
